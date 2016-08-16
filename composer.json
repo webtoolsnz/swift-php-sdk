@@ -1,0 +1,39 @@
+{
+  "name": "webtoolsnz/swift-sdk",
+  "type": "library",
+  "description" : "PHP SDK for the Swift SMS campaign tool",
+  "keywords": ["swift", "sms", "campaign", "api", "sdk"],
+  "license": "MIT",
+  "homepage" : "https://github.com/webtoolsnz/swift-php-sdk",
+  "authors": [
+    {
+      "name": "Byron Adams",
+      "email": "byron.adams54@gmail.com"
+    },
+    {
+      "name": "Webtools",
+      "email": "support@webtools.co.nz"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/webtoolsnz/swift-php-sdk"
+  },
+  "require": {
+    "php": ">=5.4.0",
+    "guzzlehttp/guzzle": "~5.0|~4.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.2.0",
+    "fabpot/php-cs-fixer": "^1.11"
+  },
+  "autoload": {
+    "psr-4": {
+      "webtoolnz\\Swift\\": "src/",
+      "webtoolsnz\\Swift\\tests\\" : "tests/"
+    }
+  },
+  "scripts": {
+    "test": "./vendor/bin/phpunit --coverage-text --coverage-html=build;",
+    "php-cs-fixer" : "./vendor/bin/php-cs-fixer fix ."
+  }
+}
