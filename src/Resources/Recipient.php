@@ -18,64 +18,71 @@ use webtoolsnz\Swift\Resource;
  * Class Campaign
  * @package webtoolsnz\Swift\Resources
  */
-class Campaign extends Resource
+class Recipient extends Resource
 {
     /**
-     * Unique ID for this campaign
+     * Unique ID for this recipient
      * @var integer
      */
     public $id;
 
     /**
-     * Short description of the campaign
-     *
+     * ID of the campaign the recipient is attached to.
+     * @var integer
+     */
+    public $campaign_id;
+
+    /**
      * @var string
      */
-    public $description;
+    public $account_id;
 
     /**
-     * Campaign Notes
-     *
      * @var string
      */
-    public $note;
+    public $first_name;
 
     /**
-     * When the campaign was created
-     * @var \DateTime
+     * @var string
      */
-    public $created_at;
+    public $last_name;
 
     /**
-     * When the campaign was last updated.
-     * @var \DateTime
+     * @var string
      */
-    public $updated_at;
+    public $mobile_number;
 
     /**
-     *
+     * @var string
+     */
+    public $status;
+
+    /**
+     * @var integer
+     */
+    public $status_id;
+
+    /**
      * @var
      */
-    public $country;
+    public $link;
 
     /**
-     * @var
+     * @var Field[]
      */
-    public $form;
+    public $form = [];
 
     /**
-     * @param \stdClass $data
-     */
-    public function setCountry($data)
-    {
-        $this->country = Country::createFromJson($data);
-    }
-
-    /**
-     * @param \stdClass $data
+     * @param array $data
      */
     public function setForm($data)
     {
-        $this->form = Form::createFromJson($data);
+        if (!is_array($data)) {
+            return;
+        }
+
+        foreach ($data as $field) {
+            $this->form[] = Field::createFromJson($field);
+        }
     }
 }

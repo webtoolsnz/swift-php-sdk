@@ -14,9 +14,15 @@ namespace webtoolsnz\Swift;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Client;
+use GuzzleHttp\Message\ResponseInterface;
 use webtoolsnz\Swift\Actions\CampaignList;
+use webtoolsnz\Swift\Actions\RecipientCreate;
+use webtoolsnz\Swift\Actions\RecipientView;
+use webtoolsnz\Swift\Exceptions\AuthenticationException;
+use webtoolsnz\Swift\Exceptions\DataValidationException;
 use webtoolsnz\Swift\Exceptions\SwiftException;
 use webtoolsnz\Swift\Resources\Campaign;
+use webtoolsnz\Swift\Resources\Recipient;
 
 /**
  * Class Swift
@@ -64,7 +70,7 @@ class Swift
     {
         return $this->http->createRequest(
             $method->getRequestMethod(),
-            $this->endPoint . '/' .$method->getRequestPath(),
+            $this->endPoint . '/' . $method->getRequestPath(),
             array_merge_recursive([
                 'exceptions' => false,
                 'headers' => [
@@ -84,16 +90,34 @@ class Swift
     {
         $response = $this->http->send($this->createRequest($method));
 
-        if ($response->getStatusCode() !== 200) {
-            $json = json_decode($response->getBody()->getContents());
-//            if (isset($json->error) && is_array($json->error->errors)) {
-//                $this->assertInvalidKey($json);
-//                $this->assertInvalidValue($json);
-//            } // @codeCoverageIgnore
-            throw new SwiftException($response->getBody());
+        if (in_array($response->getStatusCode(), [200, 201], true)) {
+            return $method->processResponse($response);
         }
 
-        return $method->processResponse($response);
+        return $this->processError($response);
+    }
+
+    /**
+     * @param ResponseInterface $response
+     * @throws AuthenticationException
+     * @throws DataValidationException
+     * @throws SwiftException
+     */
+    private function processError(ResponseInterface $response)
+    {
+        $body = json_decode($response->getBody()->getContents());
+        $message = isset($body->message) ? $body->message : $body;
+
+        switch ($response->getStatusCode()) {
+            case 401:
+            case 403:
+                throw new AuthenticationException($message);
+            case 422:
+                throw new DataValidationException(json_encode($message));
+                break;
+        }
+
+        throw new SwiftException($body, $response->getStatusCode());
     }
 
     /**
@@ -104,5 +128,23 @@ class Swift
     public function getCampaigns()
     {
         return $this->execute(new CampaignList());
+    }
+
+    /**
+     * @param  integer $id
+     * @return Recipient
+     */
+    public function getRecipient($id)
+    {
+        return $this->execute(new RecipientView($id));
+    }
+
+    /**
+     * @param Recipient $resource
+     * @return Recipient
+     */
+    public function createRecipient(Recipient $resource)
+    {
+        return $this->execute(new RecipientCreate($resource));
     }
 }

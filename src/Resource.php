@@ -64,7 +64,7 @@ abstract class Resource implements \JsonSerializable
     {
         $setter = 'set'.$name;
 
-        if (method_exists($this, $setter)) {
+        if (method_exists($this, $setter) && $value !== null) {
             call_user_func([$this, $setter], $value);
             return;
         }
