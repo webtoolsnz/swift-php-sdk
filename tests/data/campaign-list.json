@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "description": "Test Campaign 1",
+    "note": "",
+    "created_at": "2016-05-24 20:53:50",
+    "updated_at": "2016-08-02 11:35:41",
+    "country": {
+      "id": 159,
+      "code": "NZ",
+      "description": "New Zealand"
+    },
+    "form": {
+      "id": 2,
+      "description": "Test Form"
+    }
+  },
+  {
+    "id": 2,
+    "description": "Test Campaign 2",
+    "note": "qwdqwd",
+    "created_at": "2016-08-02 14:44:45",
+    "updated_at": "2016-08-10 11:49:49",
+    "country": {
+      "id": 159,
+      "code": "NZ",
+      "description": "New Zealand"
+    },
+    "form": null
+  },
+  {
+    "id": 3,
+    "description": "Test Campaign 3",
+    "note": "qwdqw",
+    "created_at": "2016-08-09 15:53:44",
+    "updated_at": "2016-08-09 15:53:44",
+    "country": {
+      "id": 159,
+      "code": "NZ",
+      "description": "New Zealand"
+    },
+    "form": null
+  }
+]

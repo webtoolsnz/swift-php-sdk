@@ -53,13 +53,12 @@ class Campaign extends Resource
     public $updated_at;
 
     /**
-     *
-     * @var
+     * @var Country
      */
     public $country;
 
     /**
-     * @var
+     * @var Form
      */
     public $form;
 

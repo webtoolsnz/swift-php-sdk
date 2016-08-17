@@ -44,6 +44,7 @@ class CampaignList implements ActionInterface
     public function processResponse(ResponseInterface $response)
     {
         $body = $response->getBody()->getContents();
+
         $campaigns = json_decode($body);
 
         if (!is_array($campaigns)) {
