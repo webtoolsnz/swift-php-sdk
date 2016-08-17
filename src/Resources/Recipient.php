@@ -77,10 +77,6 @@ class Recipient extends Resource
      */
     public function setForm($data)
     {
-        if (!is_array($data)) {
-            return;
-        }
-
         foreach ($data as $field) {
             $this->form[] = Field::createFromJson($field);
         }
