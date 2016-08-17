@@ -5,7 +5,7 @@
          convertWarningsToExceptions="true"
          stopOnFailure="true">
     <testsuites>
-        <testsuite name="google-url test suite">
+        <testsuite name="swift-php-sdk test suite">
             <directory suffix="Test.php">tests</directory>
         </testsuite>
     </testsuites>
