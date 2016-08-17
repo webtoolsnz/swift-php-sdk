@@ -105,8 +105,9 @@ class Swift
      */
     private function processError(ResponseInterface $response)
     {
-        $body = json_decode($response->getBody()->getContents());
-        $message = isset($body->message) ? $body->message : $body;
+        $body = $response->getBody()->getContents();
+        $json = json_decode($body);
+        $message = isset($json->message) ? $json->message : $body;
 
         switch ($response->getStatusCode()) {
             case 401:
@@ -114,10 +115,9 @@ class Swift
                 throw new AuthenticationException($message);
             case 422:
                 throw new DataValidationException(json_encode($message));
-                break;
         }
 
-        throw new SwiftException($body, $response->getStatusCode());
+        throw new SwiftException($message, $response->getStatusCode());
     }
 
     /**
