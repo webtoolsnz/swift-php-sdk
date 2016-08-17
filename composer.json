@@ -28,7 +28,7 @@
   },
   "autoload": {
     "psr-4": {
-      "webtoolnz\\Swift\\": "src/",
+      "webtoolsnz\\Swift\\": "src/",
       "webtoolsnz\\Swift\\tests\\" : "tests/"
     }
   },
