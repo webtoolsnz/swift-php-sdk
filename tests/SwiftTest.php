@@ -2,7 +2,6 @@
 
 namespace webtoolsnz\Swift\tests;
 
-
 use GuzzleHttp\Client;
 use GuzzleHttp\Subscriber\Mock;
 use GuzzleHttp\Message\Response;
