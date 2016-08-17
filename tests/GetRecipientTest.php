@@ -10,7 +10,7 @@ use webtoolsnz\Swift\Swift;
 
 class GetRecipientTest extends \PHPUnit_Framework_TestCase
 {
-    public function testGetCampaigns()
+    public function testGetRecipientWithForm()
     {
         $client = new Client();
         $json = file_get_contents(__DIR__ . '/data/get-recipient-with-form.json');
@@ -29,5 +29,7 @@ class GetRecipientTest extends \PHPUnit_Framework_TestCase
         self::assertTrue(is_array($resource->form));
         self::assertEquals(2, count($resource->form));
         self::assertInstanceOf('\webtoolsnz\Swift\Resources\Field', $resource->form[0]);
+        self::assertEquals('Purple', $resource->form[0]->value);
+        self::assertEquals('favourite_color', $resource->form[0]->name);
     }
 }

@@ -32,4 +32,17 @@ class GetCampaignsTest extends \PHPUnit_Framework_TestCase
         self::assertInstanceOf('\webtoolsnz\Swift\Resources\Campaign', $resources[1]);
         self::assertEquals('Test Campaign 2', $resources[1]->description);
     }
+
+    public function testUnexpectedResult()
+    {
+        $client = new Client();
+        $content = Stream::factory('ABC');
+        $mock = new Mock([new Response(200, [], $content)]);
+        $client->getEmitter()->attach($mock);
+
+        $this->setExpectedException('\webtoolsnz\Swift\Exceptions\SwiftException', 'Unexpected response from server: ABC');
+        
+        $swift = new Swift('', '', $client);
+        $swift->getCampaigns();
+    }
 }
