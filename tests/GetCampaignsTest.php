@@ -25,6 +25,7 @@ class GetCampaignsTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(3, count($resources));
         self::assertInstanceOf('\webtoolsnz\Swift\Resources\Campaign', $resources[0]);
         self::assertEquals('Test Campaign 1', $resources[0]->description);
+        self::assertEquals(10, $resources[0]->active);
         self::assertInstanceOf('\webtoolsnz\Swift\Resources\Country', $resources[0]->country);
         self::assertEquals('New Zealand', $resources[0]->country->description);
         self::assertInstanceOf('\webtoolsnz\Swift\Resources\Form', $resources[0]->form);
