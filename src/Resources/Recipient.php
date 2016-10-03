@@ -68,6 +68,26 @@ class Recipient extends Resource
     public $link;
 
     /**
+     * @var string
+     */
+    public $created_at;
+
+    /**
+     * @var string
+     */
+    public $updated_at;
+
+    /**
+     * @var string
+     */
+    public $sent_date;
+
+    /**
+     * @var string
+     */
+    public $access_date;
+
+    /**
      * @var Field[]
      */
     public $form = [];
