@@ -16,6 +16,7 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Message\ResponseInterface;
 use webtoolsnz\Swift\Actions\CampaignList;
+use webtoolsnz\Swift\Actions\Media;
 use webtoolsnz\Swift\Actions\RecipientCreate;
 use webtoolsnz\Swift\Actions\RecipientView;
 use webtoolsnz\Swift\Exceptions\AuthenticationException;
@@ -146,5 +147,14 @@ class Swift
     public function createRecipient(Recipient $resource)
     {
         return $this->execute(new RecipientCreate($resource));
+    }
+
+    /**
+     * @param $file
+     * @return \webtoolsnz\Swift\Resources\Media
+     */
+    public function getMedia($file)
+    {
+        return $this->execute(new Media($file));
     }
 }
