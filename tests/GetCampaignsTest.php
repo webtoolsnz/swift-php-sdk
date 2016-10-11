@@ -32,6 +32,13 @@ class GetCampaignsTest extends \PHPUnit_Framework_TestCase
 
         self::assertInstanceOf('\webtoolsnz\Swift\Resources\Campaign', $resources[1]);
         self::assertEquals('Test Campaign 2', $resources[1]->description);
+
+        self::assertTrue(is_array($resources[0]->form->fields));
+
+        $fields = $resources[0]->form->fields;
+
+        self::assertInstanceOf('\webtoolsnz\Swift\Resources\Field', $fields[0]);
+        self::assertEquals('test_field', $fields[0]->name);
     }
 
     public function testUnexpectedResult()

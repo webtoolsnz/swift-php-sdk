@@ -31,4 +31,20 @@ class Form extends Resource
      * @var String
      */
     public $description;
+
+    /**
+     * @var Field[]
+     */
+    public $fields = [];
+
+    /**
+     * @param $fields
+     */
+    public function setFields($fields)
+    {
+        foreach ($fields as $field) {
+            $this->fields[] = Field::createFromJson($field);
+        }
+    }
 }
+

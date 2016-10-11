@@ -13,7 +13,10 @@
     },
     "form": {
       "id": 2,
-      "description": "Test Form"
+      "description": "Test Form",
+      "fields": [
+        {"name":"test_field","label":"test_field","field_type_id":10,"field_type":"Text Input"}
+      ]
     }
   },
   {
