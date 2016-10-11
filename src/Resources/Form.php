@@ -47,4 +47,3 @@ class Form extends Resource
         }
     }
 }
-
