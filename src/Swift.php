@@ -18,6 +18,7 @@ use GuzzleHttp\Message\ResponseInterface;
 use webtoolsnz\Swift\Actions\CampaignList;
 use webtoolsnz\Swift\Actions\Media;
 use webtoolsnz\Swift\Actions\RecipientCreate;
+use webtoolsnz\Swift\Actions\RecipientDelete;
 use webtoolsnz\Swift\Actions\RecipientView;
 use webtoolsnz\Swift\Exceptions\AuthenticationException;
 use webtoolsnz\Swift\Exceptions\DataValidationException;
@@ -91,7 +92,7 @@ class Swift
     {
         $response = $this->http->send($this->createRequest($method));
 
-        if (in_array($response->getStatusCode(), [200, 201], true)) {
+        if (in_array($response->getStatusCode(), [200, 201, 204], true)) {
             return $method->processResponse($response);
         }
 
@@ -147,6 +148,14 @@ class Swift
     public function createRecipient(Recipient $resource)
     {
         return $this->execute(new RecipientCreate($resource));
+    }
+
+    /**
+     * @param $id
+     */
+    public function deleteRecipient($id)
+    {
+        $this->execute(new RecipientDelete($id));
     }
 
     /**
