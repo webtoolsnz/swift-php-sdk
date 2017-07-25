@@ -19,6 +19,7 @@ use webtoolsnz\Swift\Actions\CampaignList;
 use webtoolsnz\Swift\Actions\Media;
 use webtoolsnz\Swift\Actions\RecipientCreate;
 use webtoolsnz\Swift\Actions\RecipientDelete;
+use webtoolsnz\Swift\Actions\RecipientLookup;
 use webtoolsnz\Swift\Actions\RecipientView;
 use webtoolsnz\Swift\Exceptions\AuthenticationException;
 use webtoolsnz\Swift\Exceptions\DataValidationException;
@@ -90,7 +91,8 @@ class Swift
      */
     private function execute(ActionInterface $method)
     {
-        $response = $this->http->send($this->createRequest($method));
+        $req = $this->createRequest($method);
+        $response = $this->http->send($req);
 
         if (in_array($response->getStatusCode(), [200, 201, 204], true)) {
             return $method->processResponse($response);
@@ -118,7 +120,6 @@ class Swift
             case 422:
                 throw new DataValidationException(json_encode($message));
         }
-
         throw new SwiftException($message, $response->getStatusCode());
     }
 
@@ -140,6 +141,17 @@ class Swift
     {
         return $this->execute(new RecipientView($id));
     }
+
+    /**
+     * @param $account_id
+     * @param $campaign_id
+     * @return Recipient
+     */
+    public function findRecipient($account_id, $campaign_id)
+    {
+        return $this->execute(new RecipientLookup($account_id, $campaign_id));
+    }
+
 
     /**
      * @param Recipient $resource

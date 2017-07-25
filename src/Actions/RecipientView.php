@@ -21,7 +21,7 @@ class RecipientView implements ActionInterface
 
     /**
      * RecipientView constructor.
-     * @param $id
+     * @param integer $id
      */
     public function __construct($id)
     {
