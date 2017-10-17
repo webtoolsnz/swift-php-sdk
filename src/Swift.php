@@ -18,6 +18,7 @@ use GuzzleHttp\Message\ResponseInterface;
 use webtoolsnz\Swift\Actions\CampaignList;
 use webtoolsnz\Swift\Actions\Media;
 use webtoolsnz\Swift\Actions\RecipientCreate;
+use webtoolsnz\Swift\Actions\RecipientUpdate;
 use webtoolsnz\Swift\Actions\RecipientDelete;
 use webtoolsnz\Swift\Actions\RecipientLookup;
 use webtoolsnz\Swift\Actions\RecipientView;
@@ -160,6 +161,15 @@ class Swift
     public function createRecipient(Recipient $resource)
     {
         return $this->execute(new RecipientCreate($resource));
+    }
+
+    /**
+     * @param Recipient $resource
+     * @return Recipient
+     */
+    public function updateRecipient(Recipient $resource)
+    {
+        return $this->execute(new RecipientUpdate($resource));
     }
 
     /**
